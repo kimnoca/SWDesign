@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>다음 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2.5em;
+        color: #4a4a4a;
+      }
+
+      #userMajor {
+        display: none;
+      }
+
+      #mbtiList {
+        margin-top: 20px;
+        width: 80%;
+        text-align: center;
+      }
+
+      #mbtiList h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+        color: #007bff;
+      }
+
+      #mbtiList ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #mbtiList li {
+        font-size: 1.2em;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>다시 선택한 전공의 가장 많은 MBTI</h1>
+    <div id="userMajor"></div>
+    <div id="mbtiList"></div>
+    <button onclick="location.href='/otherInput'">다른 전공 선택</button>
+    <button onclick="location.href='/'">다시 시작</button>
+    <!-- Add a button with onclick event -->
+    <script>
+      async function displayUserInfo() {
+        try {
+          const response = await fetch("/getOtherUser");
+          const data = await response.json();
+          const userMajorContainer = document.getElementById("userMajor");
+          userMajorContainer.innerText = `전공: ${data.major}`;
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      async function displayTopMBTI() {
+        try {
+          const response = await fetch("/getTopMBTI");
+          const statistics = await response.json();
+          const mbtiListContainer = document.getElementById("mbtiList");
+          const userMajorContainer = document.getElementById("userMajor");
+          const userMajor = userMajorContainer.innerText.replace("전공: ", "");
+          const mbtiArray = statistics[userMajor];
+
+          const majorContainer = document.createElement("div");
+          majorContainer.innerHTML = `<h2>${userMajor}</h2>`;
+          mbtiListContainer.appendChild(majorContainer);
+
+          const mbtiList = document.createElement("ul");
+          mbtiArray.forEach(mbti => {
+            const listItem = document.createElement("li");
+            listItem.innerText = mbti;
+            mbtiList.appendChild(listItem);
+          });
+
+          majorContainer.appendChild(mbtiList);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      async function init() {
+        await displayUserInfo();
+        await displayTopMBTI();
+      }
+
+      init();
+    </script>
+  </body>
+</html>

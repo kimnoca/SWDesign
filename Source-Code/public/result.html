@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Result</title>
+    <style>
+      body {
+        font-size: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        box-sizing: border-box;
+      }
+
+      h1 {
+        font-size: 2em;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: 1.2em;
+        text-align: center;
+        color: #777;
+      }
+
+      img {
+        width: 300px; /* Fixed width */
+        height: auto;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column; /* Changed to column */
+        justify-content: center; /* Centered vertically */
+        align-items: center; /* Centered horizontally */
+      }
+
+      button {
+        width: 120px; /* Increased width */
+        padding: 2px 4px; /* Further reduced padding */
+        font-size: 0.6em; /* Further reduced font size */
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 5px; /* Reduced space between the buttons */
+      }
+
+      @media screen and (min-width: 768px) {
+        body {
+          padding: 50px;
+        }
+
+        h1 {
+          font-size: 3em;
+        }
+
+        h3 {
+          font-size: 1.5em;
+        }
+
+        button {
+          width: 160px; /* Larger width for larger screens */
+          padding: 5px 10px;
+          font-size: 0.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SNS 공유</h1>
+    <img src="result.jpg" id="myImage" />
+    <br />
+    <div class="button-container">
+      <button onclick="location.href='/'">다시 시작</button>
+      <button id="downloadButton">사진 다운로드</button>
+    </div>
+    <h3>다운로드 버튼을 눌러서 SNS에 공유 해보세요</h3>
+    <script>
+      document
+        .getElementById("downloadButton")
+        .addEventListener("click", function () {
+          let image = document.getElementById("myImage");
+          let imageUrl = image.src;
+          let link = document.createElement("a");
+          link.href = imageUrl;
+          link.download = "result.jpg"; // 다운로드 될 파일의 이름을 지정합니다.
+          link.click();
+        });
+    </script>
+  </body>
+</html>

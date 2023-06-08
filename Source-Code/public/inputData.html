@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>제목을 입력하세요</title>
+    <style>
+      /* 먼저 모바일 화면에 대한 스타일을 설정합니다. */
+      body {
+        font-size: 16px;
+        line-height: 1.5;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-top: 0;
+        text-align: center;
+      }
+
+      form {
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 5px;
+        text-align: left;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        text-align: left;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 16px; /* padding 값을 조정 */
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        text-align: center; /* 가운데 정렬 */
+      }
+
+      @media screen and (min-width: 768px) {
+        body {
+          padding: 50px;
+        }
+
+        h1 {
+          font-size: 48px;
+        }
+
+        form {
+          max-width: 800px;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        input,
+        select {
+          width: 70%;
+          text-align: left;
+        }
+
+        input[type="submit"] {
+          width: 70%;
+          padding: 10px 20px; /* padding 값을 조정 */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>정보를 입력해주세요!</h1>
+    <form action="/viewStat" method="POST">
+      <input
+        type="text"
+        id="name"
+        placeholder="이름"
+        name="name"
+        required
+      /><br /><br />
+      <select id="major" name="major">
+        <option value="경영학">경영학</option>
+        <option value="컴퓨터 공학">컴퓨터 공학</option>
+        <option value="영문학">영문학</option>
+
+        <!-- 이곳에 적절한 대학 전공을 추가해주세요 --></select
+      ><br /><br />
+      <select id="mbti" name="mbti">
+        <option value="ISTJ">ISTJ</option>
+        <option value="ISFJ">ISFJ</option>
+        <option value="INFJ">INFJ</option>
+        <option value="INTJ">INTJ</option>
+        <option value="ISTP">ISTP</option>
+        <option value="ISFP">ISFP</option>
+        <option value="INFP">INFP</option>
+        <option value="INTP">INTP</option>
+        <option value="ESTP">ESTP</option>
+        <option value="ESFP">ESFP</option>
+        <option value="ENFP">ENFP</option>
+        <option value="ENTP">ENTP</option>
+        <option value="ESTJ">ESTJ</option>
+        <option value="ESFJ">ESFJ</option>
+        <option value="ENFJ">ENFJ</option>
+        <option value="ENTJ">ENTJ</option></select
+      ><br /><br />
+      <!-- 여기에 추가적인 input 요소를 추가할 수 있습니다. -->
+      <input type="submit" value="통계보기" />
+    </form>
+  </body>
+</html>

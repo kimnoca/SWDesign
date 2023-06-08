@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>다음 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2.5em;
+        color: #4a4a4a;
+      }
+
+      #userMajor {
+        display: none;
+      }
+
+      #mbtiList {
+        margin-top: 20px;
+        width: 80%;
+        text-align: center;
+        /* background-color: lightgray; */
+      }
+
+      #mbtiList h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+        color: #007bff;
+      }
+
+      #mbtiList ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #mbtiList li {
+        font-size: 1.2em;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%; /* Add this */
+        max-width: 200px; /* Add this */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>선택한 전공의 가장 많은 MBTI</h1>
+    <div id="userMajor"></div>
+    <div id="mbtiList"></div>
+    <button onclick="redirectToResult()">SNS 공유</button>
+    <button onclick="location.href='/otherInput'">다른 전공 선택</button>
+    <button onclick="location.href='/'">다시 시작</button>
+    <!-- JavaScript code as it is -->
+    <!-- ... -->
+    <script>
+      //       async function displayUserInfo() {
+      //         try {
+      //           const response = await fetch("/getUserInfo");
+      //           const data = await response.json();
+      //           const userMajorContainer = document.getElementById("userMajor");
+      //           userMajorContainer.innerText = `전공: ${data.major}`;
+      //         } catch (error) {
+      //           console.error("Error:", error);
+      //         }
+      //       }
+      //
+      //       async function displayTopMBTI() {
+      //         try {
+      //           const response = await fetch("/getTopMBTI");
+      //           const statistics = await response.json();
+      //           console.log(statistics);
+      //           const mbtiListContainer = document.getElementById("mbtiList");
+      //           const userMajorContainer = document.getElementById("userMajor");
+      //           const userMajor = userMajorContainer.innerText.replace("전공: ", "");
+      //           const mbtiArray = statistics[userMajor];
+      //
+      //           const majorContainer = document.createElement("div");
+      //           majorContainer.innerHTML = `<h2>${userMajor}</h2>`;
+      //           mbtiListContainer.appendChild(majorContainer);
+      //
+      //           const mbtiList = document.createElement("ul");
+      //           mbtiArray.forEach(mbti => {
+      //             const listItem = document.createElement("li");
+      //             listItem.innerText = mbti;
+      //             mbtiList.appendChild(listItem);
+      //           });
+      //
+      //           majorContainer.appendChild(mbtiList);
+      //         } catch (error) {
+      //           console.error("Error:", error);
+      //         }
+      //       }
+      //
+      //       async function init() {
+      //         await displayUserInfo();
+      //         await displayTopMBTI();
+      //       }
+      //
+
+      //       }
+      //
+      //       init();
+      class StatView {
+        static async displayUserInfo() {
+          try {
+            const response = await fetch("/getUserInfo");
+            const data = await response.json();
+            const userMajorContainer = document.getElementById("userMajor");
+            userMajorContainer.innerText = `전공: ${data.major}`;
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        }
+
+        static async displayTopMBTI() {
+          try {
+            const response = await fetch("/getTopMBTI");
+            const statistics = await response.json();
+            const mbtiListContainer = document.getElementById("mbtiList");
+            const userMajorContainer = document.getElementById("userMajor");
+            const userMajor = userMajorContainer.innerText.replace(
+              "전공: ",
+              ""
+            );
+            const mbtiArray = statistics[userMajor];
+
+            const majorContainer = document.createElement("div");
+            majorContainer.innerHTML = `<h2>${userMajor}</h2>`;
+            mbtiListContainer.appendChild(majorContainer);
+
+            const mbtiList = document.createElement("ul");
+            mbtiArray.forEach(mbti => {
+              const listItem = document.createElement("li");
+              listItem.innerText = mbti;
+              mbtiList.appendChild(listItem);
+            });
+
+            majorContainer.appendChild(mbtiList);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        }
+
+        static async init() {
+          await StatView.displayUserInfo();
+          await StatView.displayTopMBTI();
+        }
+      }
+      function redirectToResult() {
+        // Make a request to create the image
+        fetch("/createImg", { method: "POST" })
+          .then(response => {
+            // If the image is successfully created, redirect to the result page
+            if (response.ok) {
+              window.location.href = "/result.html"; // Change the URL to '/result.html'
+            } else {
+              console.error("Image creation failed");
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
+      }
+      StatView.init();
+    </script>
+  </body>
+</html>
